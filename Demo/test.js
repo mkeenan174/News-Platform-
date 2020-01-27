@@ -9,7 +9,7 @@ import comment from './js/comment.js';
 window.addEventListener('load', () => {
     //logTest();
     getArticles(printer);
-    getArticles(tilePainter, 'test-pen', 'small-tile');
+    getArticles(cardFiller, 'test-pen', 'small');
     // talk();
     // var comments = SetUpComments();
     // var articles = SetupArticles();
@@ -21,11 +21,12 @@ window.addEventListener('load', () => {
     // });
    var body = document.getElementById("doc-body");
    body.onclick = function (e) {
-       let t = e.target.parentElement;
-        if(t.className == 'small-tile'){
-            console.log(t.id);
-            gotoArticle(t.id);
-        }
+    //    let t = e.target.parentElement;
+    //     if(t.className == 'small-tile'){
+    //         console.log(t.id);
+    //         gotoArticle(t.id);
+    //     }
+        detectArticle(e.target);
        
 
        
@@ -60,6 +61,7 @@ function logTest(){
     let instruct = 'Post value';
     var params = 'name='+instruct;
 
+
     var xhr = new XMLHttpRequest();
     xhr.open('Post', 'xhr.inc.php?.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
@@ -83,57 +85,54 @@ function gotoArticle(id){
     window.document.location = 'articlepage.php'+'?article=' + id;
 }
 
+function detectArticle(target){
+      if(target.id == 'card' || target.id == 'card-body'){
+          gotoArticle(target.id);
+      }else{
+          if(target.parentElement.className == 'card-body'){
+              gotoArticle(target.parentElement.id);
+          }
+      }
+}
 
-function tilePainter(location, type, objs){
 
+
+
+function cardFiller(loc, size, objs){
+    var destination = document.getElementById(loc);
 
     objs.forEach(item =>{
+        var card = document.createElement('div');
+        var cardBody = document.createElement('div');
+        var cardTitle = document.createElement('h3');
+        var cardAuthor = document.createElement('h4');
+        
+        card.id = item.article_id;
+        card.className = 'card';
+        cardBody.className = 'card-body';
+        cardBody.id = item.article_id;
+        cardTitle.className = 'card-title';
+        cardAuthor.className = 'card-subtitle';
 
 
-            //Setup elements
-            var destination = document.getElementById(location);
-            var tile = document.createElement('div');
-            var title = document.createElement('h3');
-            var author = document.createElement('h4');
-            
-            tile.id = item.article_id;
-           
+        cardTitle.innerText = item.article_title;
+        cardAuthor.innerText = item.author_name;
 
+        switch (size) {
+            case 'small':
+                card.style="width: 15rem;";
+                break;
+        
+            case 'medium':
+                card.style="width: 20rem;";
+                break;
+        }
 
-            //Set id
-            
-
-
-
-            //Attribute Switch
-            switch (type) {
-                case 'small-tile':
-                    tile.className = 'small-tile'; 
-                    title.innerText = item.article_title;
-                    title.className = 'small-tile-title';
-                    author.innerText = item.author_name;
-                    author.className = 'small-tile-author';
-                    break;
-                
-                    case 'medium-tile':
-                        tile.className = 'medium-tile'; 
-                        title.innerText = item.article_title;
-                        tile.className = 'medium-tile-title';
-                        author.innerText = item.article_title;
-                        author.className = 'medium-tile-author';
-                        break;    
-            
-               
-            }
-           
-    
-            //Appending elements
-            tile.appendChild(title);
-            tile.appendChild(author);
-            destination.appendChild(tile);
-            
-            console.log('tile appended successfully');
-
-        });
+        destination.appendChild(card);
+        card.appendChild(cardBody);
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardAuthor);
+        console.log('Card '+card.id + ' appended');
+    });
 
 }
