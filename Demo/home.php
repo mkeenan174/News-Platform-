@@ -33,7 +33,7 @@
                 <a href="searchpage.php">Search </a>
             </li>
             <li class="nav-item ">
-                <a href="#">Login </a>
+                <a href="login.html">Login </a>
             </li>
             <li class="nav-item ">
                 <a href="#">Publish</a>
