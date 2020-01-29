@@ -1,4 +1,11 @@
+<?php
+include_once 'includes/ClassLoader.inc.php';
 
+
+ $object = new ManagerContr;
+ echo $object->newComment(1,2, 'Mark', 'lorem bitchsum');
+
+?>
 
 
 <!DOCTYPE html>

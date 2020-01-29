@@ -28,8 +28,6 @@ window.addEventListener('load', () => {
     //     }
         detectArticle(e.target);
        
-
-       
    }
 
 });
@@ -63,7 +61,7 @@ function logTest(){
 
 
     var xhr = new XMLHttpRequest();
-    xhr.open('Post', 'xhr.inc.php?.php', true);
+    xhr.open('Post', 'xhr.inc.php', true);
     xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
     xhr.onload = function(){
       console.log(this.responseText);

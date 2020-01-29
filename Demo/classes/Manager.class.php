@@ -22,10 +22,23 @@ class Manager extends Dbh{
         }
     }
 
-    function getPass($name){
-        $sql = 'SELECT * FROM users WHERE user_name = ?';
+    function getEmail($email){
+        $sql = 'SELECT * FROM users WHERE user_email = ?';
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$name]);
+        $stmt->execute([$email]);
+
+        if($stmt->rowCount()){
+            $row = $stmt->fetch();
+            return $row['user_email'];
+        }
+
+    
+    }
+
+    function getPass($email){
+        $sql = 'SELECT * FROM users WHERE user_email = ?';
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$email]);
 
         if($stmt->rowCount()){
             while($row = $stmt->fetch()){
@@ -110,7 +123,7 @@ class Manager extends Dbh{
     protected function insertComment($authorId, $articleId, $author, $content ){
         $sql = 'INSERT INTO comments ( user_id, article_id, comment_author, comment_content) VALUES (?, ?, ?, ?)';
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$authorId, $article, $author, $content]);
+        $stmt->execute([$authorId, $articleId, $author, $content]);
     }
 
 
@@ -127,8 +140,7 @@ class Manager extends Dbh{
         $sql = 'SELECT * FROM comments WHERE article_id = ?';
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
-
-        $result = $stmt->fetchAll();
+        $result = json_encode($stmt->fetchAll());
         return $result;
     }
 

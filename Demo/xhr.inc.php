@@ -3,13 +3,11 @@
 include_once "includes/ClassLoader.inc.php";
 
 if(isset($_POST)){
-    if(isset($_POST['name'])){
-        echo $_POST['name'];
-    }else{ 
+    if(isset($_POST['instruct'])){
+        echo $_POST['instruct'];
+        serviceManager($_POST['instruct']);
    
-
-    }   
-
+    }
 }
 
 if(isset($_GET)){
@@ -17,7 +15,7 @@ if(isset($_GET)){
         $instruction = $_GET['instruct'];
         serviceManager($instruction);
     }else{
-        echo 'Get error';
+        
     }
 }
 
@@ -39,8 +37,6 @@ function serviceManager($service){
                 }
              break;
             
-
-
 
         case 'Search':
            if(isset($_GET['info'])){
@@ -78,8 +74,22 @@ function serviceManager($service){
            }
         break; 
 
-        case 'logIn':
+        case 'getComments';
+            if(isset($_GET['info'])){
+                $getCommentServ = new ManagerView;
+                echo $getCommentServ->fetchComments($_GET['info']);
+            }
 
+        break;
+
+        case 'logIn':
+                 if(isset($_POST['eInfo']) && isset($_POST['pInfo'])){
+                      $logService = new ManagerView;
+                      echo $logService->logIn($_POST['eInfo'], $_POST['pInfo']);
+                    
+                 }else{
+                     echo 'No input recieved';
+                 }
         break;
 
         

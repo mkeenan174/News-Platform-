@@ -24,22 +24,27 @@ class ManagerView extends Manager{
         return $article;
     }
 
+    public function fetchComments($id){
+        $comments = $this->commentsByArticle($id);
+        return $comments;
+    }
+
     public function getSearchResults($input){
         $articles = $this->searchArticles($input);
         return $articles;
     }
 
-    public function userExists($user){
-        if($this->getUser($user) != null){
+    public function userExists($email){
+        if($this->getEmail($email) != null){
             return true;
         }else{
             return false;
         }
     }
 
-    public function logIn($user, $password){
-        if($this->userExists($user) != false){
-            if($password == $this->getPass($user)){
+    public function logIn($email, $password){
+        if($this->userExists($email) != false){
+            if($password == $this->getPass($email)){
                 echo 'correct';
             }else{
                 echo 'incorrect';
