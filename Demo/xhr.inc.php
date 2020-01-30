@@ -1,10 +1,12 @@
 <?php
-
 include_once "includes/ClassLoader.inc.php";
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if(isset($_POST)){
     if(isset($_POST['instruct'])){
-        echo $_POST['instruct'];
+        //echo $_POST['instruct'];
         serviceManager($_POST['instruct']);
    
     }
@@ -82,14 +84,38 @@ function serviceManager($service){
 
         break;
 
+        case 'addComment':
+            $addCommentService = new ManagerContr;
+            echo $addCommentService->newComment($_SESSION['uid'], $_POST['id'], $_SESSION['username'], $_POST['content']);
+
+            
+            break;
+
+        case 'loginCheck':
+                if(isset($_SESSION['uid']) && isset($_SESSION['username']) &&isset($_SESSION['email'])){
+                    echo 'Y';
+                }else{
+                    echo 'N';
+                }
+        break;
+
         case 'logIn':
                  if(isset($_POST['eInfo']) && isset($_POST['pInfo'])){
                       $logService = new ManagerView;
                       echo $logService->logIn($_POST['eInfo'], $_POST['pInfo']);
-                    
                  }else{
                      echo 'No input recieved';
                  }
+        break;
+
+        case 'logout':
+            if(isset($_SESSION['uid']) && isset($_SESSION['username']) &&isset($_SESSION['email'])){
+                unset($_SESSION['uid']);
+                unset($_SESSION['username']);
+                unset($_SESSION['email']);
+                session_destroy();
+                
+            }
         break;
 
         

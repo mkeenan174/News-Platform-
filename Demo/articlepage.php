@@ -23,7 +23,7 @@
     </div>
     <button id='rev-comments'>Reveal Comments</button>
     <div id='comments-section'>
-        <input type="text" placeholder="Comment....">
+        <input id='comment-input' type="text" placeholder="Comment....">
         <button id='comment-btn'>Comment</button>
         <div id="comment-pen"></div>
 

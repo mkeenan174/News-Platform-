@@ -46,11 +46,24 @@ class ManagerView extends Manager{
         if($this->userExists($email) != false){
             if($password == $this->getPass($email)){
                 echo 'correct';
+                $this->initSession($email);
             }else{
                 echo 'incorrect';
             }
         }else{
             echo 'user doesnt exist';
         }
+    }
+
+    public function initSession($email){
+        $info = $this->getUserInfo($email);
+        if($info != null){
+            $_SESSION['uid'] = $info[0];
+            $_SESSION['username'] = $info[1];
+            $_SESSION['email'] = $email;
+
+            return $_SESSION['username'];
+        }
+
     }
 }

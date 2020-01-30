@@ -5,7 +5,10 @@ include_once 'includes/ClassLoader.inc.php';
  $object = new ManagerContr;
  echo $object->newComment(1,2, 'Mark', 'lorem bitchsum');
 
-?>
+$obj2 = new ManagerView;
+// echo $obj2->initSession('ted@test.com');
+// echo $obj2->showArticles();
+ ?>
 
 
 <!DOCTYPE html>

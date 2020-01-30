@@ -44,8 +44,9 @@ function getArticles(callback, location, type){
     xhr.open('GET','xhr.inc.php?instruct=getArticles', true);
     xhr.onload = function(){
         if(this.status == 200){
-           articles = JSON.parse(this.responseText);
-           callback(location, type, articles);
+            console.log(this.responseText);
+            articles = JSON.parse(this.responseText);
+            callback(location, type, articles);
         }else{
             console.log('Article request Failed');
         }

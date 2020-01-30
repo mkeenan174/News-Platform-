@@ -22,6 +22,17 @@ class Manager extends Dbh{
         }
     }
 
+    protected function getUserInfo($email){
+            $sql = 'SELECT * FROM users WHERE user_email = ?';
+            $stmt = $this->connect()->prepare($sql);
+            $stmt->execute([$email]);
+
+            if($stmt->rowCount()){
+                $row = $stmt->fetch();
+                $results = array($row['user_id'], $row['user_name']);
+                return $results;
+            }
+    } 
     function getEmail($email){
         $sql = 'SELECT * FROM users WHERE user_email = ?';
         $stmt = $this->connect()->prepare($sql);

@@ -4,7 +4,8 @@ window.addEventListener('load', () => {
     loadArticle(paintArticle, readArticle, articleId);     
     var body = document.getElementById('pen'); 
     var commentsRevealed = false;
-
+    let array = [printer, 'Callback'];
+    calls(array);
 
     body.addEventListener('click', (e) => {
         t = e.target;
@@ -24,13 +25,54 @@ window.addEventListener('load', () => {
         }
 
         if(t.id == 'rev-comments'){
-            if(commentsRevealed == false){
+            console.log(commentsRevealed);
+            if(commentsRevealed === false){
             loadComments(paintComments, articleId);
+            commentsRevealed = true;
             }
+        }
+
+        if(t.id === 'comment-btn'){
+           let cInput = document.getElementById('comment-input').value;
+           if(cInput !== null){
+               let args =[articleId, cInput, printer];
+               loginCheck(addComment, args);
+           }
         }
     });
 });
 
+
+// Testing 
+
+function calls(args){
+    args[0](args[1]);
+}
+
+function printer(args){
+   console.log(args);
+    
+}
+
+
+
+
+
+
+
+
+function addComment(args){
+    var params = 'instruct=addComment&id='+args[0]+'&content='+args[1];
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'xhr.inc.php', true);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.onload = function(){
+        if(this.status == 200){
+            args[2](this.responseText);
+        }
+    }
+    xhr.send(params);
+}
 
 
 function loadComments(callback, id){
@@ -41,7 +83,7 @@ function loadComments(callback, id){
            let comments = JSON.parse(this.responseText);
            console.log(comments);
            callback(comments);
-           commentsRevealed = true;
+           
         }
     }
     xhr.send();
@@ -61,6 +103,34 @@ function loadArticle(callback1, callback2, id){
             }
         }
         xhr.send();
+}
+
+function loginCheck(callback, args){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'xhr.inc.php?instruct=loginCheck', true);
+    xhr.onload = function(){
+        if(this.status == 200){
+            console.log('Login check');
+            if(this.responseText === 'Y'){
+                callback(args);
+            }else{
+            alert('You must be logged in to comment!');
+            }
+        }
+    }
+    xhr.send();
+}
+
+function logout(){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'xhr.inc.php?instruct=logout', true);
+    xhr.onload = function(){
+        if(this.status == 200){
+            console.log('Logout');
+            console.log(this.responseText);
+        }
+    }
+    xhr.send();
 }
 
 
@@ -135,12 +205,7 @@ function paintComments(comments){
         cardContent.innerText = item.comment_content;
 
        
-        card.style="width: 15rem;";
-               
-        
-            
-              
-               
+        card.style="width: 15rem;"; 
 
         destination.appendChild(card);
         card.appendChild(cardBody);
