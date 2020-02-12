@@ -118,8 +118,26 @@ function serviceManager($service){
             }
         break;
 
+        case 'publish':
+            if(loggedInCheck() != false ){
+                $pubService = new ManagerContr();
+                echo $pubService->newArticle($_SESSION['uid'], $_SESSION['username'], $_POST['title'], $_POST['interest'], $_POST['opinion'], $_POST['content']);
+            }else{
+                echo 'You must be logged in to publish an article!';
+            }
+            break;
+
         
     }
 
+}
+
+
+function loggedInCheck(){
+    if(isset($_SESSION['uid']) && isset($_SESSION['username']) &&isset($_SESSION['email'])){
+        return true;
+    }else{
+        return false;
+    }
 }
 

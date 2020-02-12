@@ -97,9 +97,9 @@ class Manager extends Dbh{
 
 
     function insertArticle($userId, $author, $title, $interest, $opinion, $content){
-        $sql = 'INSERT INTO articles(users_id, author_name, article_title, article_interest, article_opinion, article_content) VALUES ( ?, ?, ?, ?, ?, ?)';
+        $sql = 'INSERT INTO articles(user_id, author_name, article_title, article_interest, article_opinion, article_content) VALUES ( ?, ?, ?, ?, ?, ?)';
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$userID, $author, $title, $interest, $opinion, $content]);
+        $stmt->execute([$userId, $author, $title, $interest, $opinion, $content]);
 
     }
 
