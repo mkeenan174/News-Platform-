@@ -53,6 +53,7 @@ function serviceManager($service){
            if(isset($_GET['info'])){
                $Service = new ManagerContr;
                echo $Service->readArticle($_GET['info']);
+               eventTracker($_SESSION['uid'], $_GET['info'], $service);
            }else{
                echo 'fail';
            }
@@ -62,6 +63,7 @@ function serviceManager($service){
             if(isset($_GET['info'])){
                 $Serv1 = new ManagerContr;
                 echo $Serv1->likeArticle($_GET['info']);
+
             }else{
                 echo 'fail';
             }
@@ -87,8 +89,6 @@ function serviceManager($service){
         case 'addComment':
             $addCommentService = new ManagerContr;
             echo $addCommentService->newComment($_SESSION['uid'], $_POST['id'], $_SESSION['username'], $_POST['content']);
-
-            
             break;
 
         case 'loginCheck':
@@ -98,6 +98,14 @@ function serviceManager($service){
                     echo 'N';
                 }
         break;
+
+        case 'signup':
+                if(isset($_POST['name']) && isset($_POST['email']) && isset($_POST['pswd'])){
+                    echo signUp($_POST['name'],$_POST['email'], $_POST['pswd']);
+                }
+                
+            
+            break;
 
         case 'logIn':
                  if(isset($_POST['eInfo']) && isset($_POST['pInfo'])){
@@ -114,7 +122,6 @@ function serviceManager($service){
                 unset($_SESSION['username']);
                 unset($_SESSION['email']);
                 session_destroy();
-                
             }
         break;
 
@@ -132,7 +139,7 @@ function serviceManager($service){
 
 }
 
-
+//How check if the user is logged in
 function loggedInCheck(){
     if(isset($_SESSION['uid']) && isset($_SESSION['username']) &&isset($_SESSION['email'])){
         return true;
@@ -140,4 +147,124 @@ function loggedInCheck(){
         return false;
     }
 }
+
+
+function eventTracker($user, $article, $type){
+    if(loggedInCheck() == true){
+        $eventService = new ManagerContr;
+        $eventService->newEvent($user, $article, $type);
+    }
+}
+
+function signUp($name, $email, $password){
+    $signUpService = new ManagerContr;
+    $signUpService->newUser($name, $email, $password);
+    echo 'success';
+}
+
+function closeAccount(){
+
+}
+
+function logIn(){
+    if(loggedInCheck()!= true){
+        $logService = new ManagerView;
+        echo $logService->logIn($_POST['eInfo'], $_POST['pInfo']);
+    }else{
+        echo 'Already logged in!';
+    }
+}
+
+function logOut(){
+    if(loggedInCheck() != false){
+        unset($_SESSION['uid']);
+        unset($_SESSION['username']);
+        unset($_SESSION['email']);
+        session_destroy();
+        echo 'Logged out!';
+    }else{
+        echo 'Not logged in';
+    }
+}
+
+function searchArticles(){
+    if(isset($_GET['info'])){
+        $Service = new ManagerView;
+        echo $Service->getSearchResults($_GET['info']);
+    }else{
+        echo 'fail';
+    }
+}
+
+function getArticles(){
+    $ArtService = new ManagerView;
+    echo $ArtService->showArticles();
+}
+
+
+function getArticle(){
+    if(isset($_GET['info'])){
+        $Service = new ManagerView;
+        echo $Service->fetchArticle($_GET['info']);
+    }else{
+        echo 'fail';
+    }
+}
+
+function publishArticle(){
+    if(loggedInCheck() == true){
+
+    }else{
+        echo 'Not logged in';
+    }
+}
+
+function readArticle(){
+    if(loggedInCheck() == true){
+        if(isset($_GET['info'])){
+            $Service = new ManagerContr;
+            echo $Service->readArticle($_GET['info']);
+            eventTracker($_SESSION['uid'], $_GET['info'], 'Read');
+        }else{
+            echo 'fail';
+        }
+    }    
+}
+
+function likeArticle(){
+    if(loggedInCheck() == true){
+        $Serv1 = new ManagerContr;
+        echo $Serv1->likeArticle($_GET['info']);
+        eventTracker($_SESSION['uid'], $_GET['info'], 'Like');
+    }else{
+        echo 'Not logged';
+    }
+}
+
+
+function dislikeArticle(){
+    if(loggedInCheck() == true){
+        $Ser = new ManagerContr;
+        echo $Ser->dislikeArticle($_GET['info']);
+        eventTracker($_SESSION['uid'], $_GET['info'], 'Dislike');
+    }else{
+        echo 'Not logged';
+    }
+}
+
+
+function loadComments(){
+    $getCommentServ = new ManagerView;
+    echo $getCommentServ->fetchComments($_GET['info']);
+}
+
+function addComment(){
+    if(loggedInCheck() == true){
+        eventTracker($_SESSION['uid'], $_POST['id'], 'Comment');
+        $addCommentService = new ManagerContr;
+        echo $addCommentService->newComment($_SESSION['uid'], $_POST['id'], $_SESSION['username'], $_POST['content']);
+    }
+}
+
+
 

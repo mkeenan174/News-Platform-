@@ -1,6 +1,6 @@
 import './person.js';
 
-import article from './js/article.js';
+//import article from './js/article.js';
 import person from './person.js';
 import comment from './js/comment.js';
 

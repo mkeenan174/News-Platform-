@@ -7,6 +7,10 @@ $b = [7,3,3,-1];
 echo calcEuclid($a, $b);
 var_dump(calcJaccard($a, $b));
 echo calcCosine([3,2,0,5,0,0,0,2,0,0], [1,0,0,0,0,0,0,1,0,2]);
+echo calcManhattan([10, 20, 10], [10,20,20]);
+
+// $obj = new ManagerContr;
+// $obj->newUser('Fred', 'fred@test.com', 'fredtest');
 
  ?>
 
@@ -20,7 +24,7 @@ echo calcCosine([3,2,0,5,0,0,0,2,0,0], [1,0,0,0,0,0,0,1,0,2]);
     <style>
         @import url('./css/style.css');
     </style>
-   
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -31,51 +35,27 @@ echo calcCosine([3,2,0,5,0,0,0,2,0,0], [1,0,0,0,0,0,0,1,0,2]);
     <script src="test.js" type="module"></script>
     <title>Document</title>
 </head>
-<header>
- 
- <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <a class="navbar-brand mx-auto" href="#">Telescopium</a>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mx-auto">
-            <li class="nav-item active">
-                <a href="searchpage.php">Search </a>
-            </li>
-            <li class="nav-item ">
-                <a href="login.html">Login </a>
-            </li>
-            <li class="nav-item ">
-                <a href="publish.html">Publish</a>
-            </li>
-            <li class="nav-item ">
-                <a href="#">Profile</a>
-            </li>
-
-        </ul>
-    </div>
-
-
-    
- </nav>
-
-<a href="searchpage.php">Search </a>
-
-
-<form id="loginform">
-<input type="email"  id="userlog">
-<input type="password"  id="userpass">
-<button type="submit">Login</button>
-</form>
-
-
-
-
-</header>
 <body id="doc-body">
+<<header>
+	
+		<div class="top">
+   
+			<a href="#" class="menu_icon"><i class="material-icons">dehaze</i></a>
+		</div>
+	</header>
+
+
+<div id="sidebar">
+  <ul>
+    <li>Home</li>
+    <li>login</li>
+    <li>Search</li>
+    <li>Publish</li>
+    <li>Profile</li>
+  </ul>
+</div>
+
+
 <div class="card" style="width: 16rem;">
   <img class="card-img-top" src="..." alt="Card image cap">
   <div class="card-body">

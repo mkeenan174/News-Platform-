@@ -11,8 +11,13 @@ function calcEuclid($arrayA, $arrayB){
     ));
 }
 
-function calcManhattan(){
-    
+function calcManhattan($arrayA, $arrayB){
+        return array_sum(
+            array_map( function($x, $y){
+                $result = $x - $y;
+                return $result;
+            }, $arrayA, $arrayB)
+        );
 }
 
 function calcCosine($arrayA, $arrayB){

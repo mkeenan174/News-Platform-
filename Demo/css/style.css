@@ -25,3 +25,59 @@ body{
 .alternate-cards{
     grid-column: 4/5
 }
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#sidebar{
+    position: absolute;
+    width: 300px;
+    height: 100%;
+    background: #000;
+    z-index: 1;
+    left: -300px;
+}
+
+#sidebar.active{
+    left: 0;
+}
+
+#sidebar ul li{
+    list-style: none;
+    color: #fff;
+    font-size: 20px;
+    padding: 20px 24px;
+}
+
+
+header {
+	height: 50px;
+	background-color: #111111;
+	border-bottom: 1px solid #494949;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+header > h1 {
+	width: calc(100% - 160px);
+	text-align: center;
+	font-size: 20px;
+    color: white;
+   
+}
+header > .top {
+	position: absolute;
+    left: 20px;
+    display: inline;
+}
+header > .top a.menu_icon i {
+	color: #000;
+	font-size: 40px;
+	padding-top: 5px;
+	transition: .2s ease;
+}
+header > .top a.menu_icon:hover i {
+	color: #fff;
+}

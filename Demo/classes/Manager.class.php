@@ -70,10 +70,10 @@ class Manager extends Dbh{
         return $result;
     } 
 
-    function insertUser($name, $email, $interest, $alignment, $password){
-        $sql = 'INSERT INTO users( user_name, user_email, user_Interests, User_alignment, user_password) VALUES ( ?, ?, ?, ?, ?)';
+    function insertUser($name, $email, $password){
+        $sql = 'INSERT INTO users( user_name, user_email, user_password) VALUES ( ?, ?, ?)';
         $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$name, $email, $interest, $alignment, $password]);
+        $stmt->execute([$name, $email, $password]);
         
     }
 
@@ -115,7 +115,7 @@ class Manager extends Dbh{
         $sql = 'UPDATE articles SET article_likes = article_likes + 1 WHERE article_id = ?';
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
-        
+        return 'success';
 
     }
 
@@ -124,7 +124,7 @@ class Manager extends Dbh{
         $sql = 'UPDATE articles SET article_dislikes = article_dislikes + 1 WHERE article_id = ?';
         $stmt = $this->connect()->prepare($sql);
         $stmt->execute([$id]);
-        return 'Article Disliked';
+        return 'success';
     }
 
 
@@ -165,5 +165,12 @@ class Manager extends Dbh{
         return $result;
     }
 
+
+    //Event Functions
+    protected function insertEvent($user, $article, $type){
+        $sql = 'INSERT INTO evnts ( user_id, article_id, event_type) VALUES ( ?,?,?)';
+        $stmt = $this->connect()->prepare($sql);
+        $stmt->execute([$user, $article, $type] );
+    }
 
 }

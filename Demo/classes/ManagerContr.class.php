@@ -3,11 +3,10 @@
 class ManagerContr extends Manager {
 
     //User functionality
-    public function newUser($name, $email, $interests, $alignment, $password){
-        $this->insertUser($name, $email, $interests, $alignment, $password );
+    public function newUser($name, $email, $password){
+        $this->insertUser($name, $email, $password );
         echo "New users added!";
     }
-
 
 
     //Article functionality 
@@ -36,6 +35,12 @@ class ManagerContr extends Manager {
     public function newComment($authorId, $articleId, $author, $content){
         $this->insertComment($authorId, $articleId, $author, $content);
         echo 'Commented added!';
+    }
+
+
+    // Event functionality
+    public function newEvent($user, $article, $type){
+        $this->insertEvent($user, $article, $type);
     }
 
 }

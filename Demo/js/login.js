@@ -52,3 +52,18 @@ function login(inputE, inputP, callback){
     }
     
 }
+function logout(){
+    var params = 'instruct=logout';
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('Post', 'xhr.inc.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function(){
+              if (this.status == 200) {
+                  console.log(this.responseText);
+              }
+            }
+             xhr.send(params);
+             
+    }
+}
